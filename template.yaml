@@ -91,6 +91,54 @@ proxy-providers:
         type: reject
 proxies: []
 proxy-groups:
+  - name: 日常使用
+    type: select
+    proxies:
+      - 香港自动
+      - DMIT 固定
+      - MESL 选择
+      - Sakura 选择
+      - 家宽选择
+      - 台湾自动
+      - 新加坡自动
+      - 日本自动
+      - 韩国自动
+      - 美国自动
+      - 英国自动
+      - 香港-回退
+      - 香港均衡-散列
+      - 香港均衡-轮询
+      - 台湾-回退
+      - 台湾均衡-散列
+      - 台湾均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
+      - 日本-回退
+      - 日本均衡-散列
+      - 日本均衡-轮询
+      - 韩国-回退
+      - 韩国均衡-散列
+      - 韩国均衡-轮询
+      - 美国-回退
+      - 美国均衡-散列
+      - 美国均衡-轮询
+      - 英国-回退
+      - 英国均衡-散列
+      - 英国均衡-轮询
+      - DIRECT
+      - REJECT
+    use:
+      - MESL
+      - Sakura
+  - name: 下载
+    type: select
+    proxies:
+      - 日常使用
+      - Sakura 选择
+      - MESL 选择
+      - DMIT 固定
+      - DIRECT
   - name: DMIT 固定
     type: select
     proxies:
@@ -103,72 +151,96 @@ proxy-groups:
     type: select
     use:
       - Sakura
-  - name: 下载
-    type: select
-    proxies:
-      - 手动选择
-      - Sakura 选择
-      - MESL 选择
-      - DMIT 固定
-      - DIRECT
-  - name: 手动选择
-    type: select
-    proxies:
-      - 香港自动
-      - DMIT 固定
-      - MESL 选择
-      - Sakura 选择
-      - 家宽选择
-      - 台湾自动
-      - 狮城自动
-      - 日本自动
-      - 韩国自动
-      - 美国自动
-      - 英国自动
-      - 香港-回退
-      - 香港均衡-散列
-      - 香港均衡-轮询
-      - 台湾-回退
-      - 台湾均衡-散列
-      - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
-      - 日本-回退
-      - 日本均衡-散列
-      - 日本均衡-轮询
-      - 韩国-回退
-      - 韩国均衡-散列
-      - 韩国均衡-轮询
-      - 美国-回退
-      - 美国均衡-散列
-      - 美国均衡-轮询
-      - 英国-回退
-      - 英国均衡-散列
-      - 英国均衡-轮询
-      - DIRECT
-      - REJECT
-    use: &ref_0
+  - name: 香港自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: false
+    type: url-test
+    filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
+    use:
       - MESL
       - Sakura
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 台湾自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: false
+    type: url-test
+    filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
+    use:
+      - MESL
+      - Sakura
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 日本自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: false
+    type: url-test
+    filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
+    use:
+      - MESL
+      - Sakura
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 新加坡自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: false
+    type: url-test
+    filter: (?i)(?=.*(🇸🇬|新加坡|新加坡|新|SG|SGP|singapore))
+    use:
+      - MESL
+      - Sakura
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 美国自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: false
+    type: url-test
+    filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
+    use:
+      - MESL
+      - Sakura
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 韩国自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: false
+    type: url-test
+    filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
+    use:
+      - MESL
+      - Sakura
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 英国自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: false
+    type: url-test
+    filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
+    use:
+      - MESL
+      - Sakura
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 家宽选择
     interval: 600
     url: https://www.gstatic.com/generate_204
     hidden: false
     type: fallback
     filter: (?i)(?=.*(家宽))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: GLOBAL
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -178,9 +250,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -195,7 +267,9 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Claude
     type: select
     proxies:
@@ -203,9 +277,9 @@ proxy-groups:
       - MESL 选择
       - Sakura 选择
       - 台湾自动
-      - 手动选择
+      - 日常使用
       - 香港自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -215,9 +289,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -232,15 +306,17 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Gemini
     type: select
     proxies:
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
-      - 狮城自动
-      - 手动选择
+      - 新加坡自动
+      - 日常使用
       - 香港自动
       - 台湾自动
       - 日本自动
@@ -252,9 +328,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -270,7 +346,9 @@ proxy-groups:
       - DIRECT
       - REJECT
     url: https://www.google.com/generate_204
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: OpenAI
     type: select
     proxies:
@@ -278,10 +356,10 @@ proxy-groups:
       - MESL 选择
       - Sakura 选择
       - 美国自动
-      - 手动选择
+      - 日常使用
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 香港-回退
@@ -290,9 +368,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -307,17 +385,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Apple
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -327,9 +407,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -345,17 +425,19 @@ proxy-groups:
       - DIRECT
       - REJECT
     url: https://www.apple.com/library/test/success.html
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Disney
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -365,9 +447,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -382,17 +464,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Netflix
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -402,9 +486,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -419,17 +503,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Spotify
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -439,9 +525,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -456,7 +542,9 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: TikTok
     type: select
     proxies:
@@ -464,9 +552,9 @@ proxy-groups:
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
-      - 手动选择
+      - 日常使用
       - 香港自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -476,9 +564,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -493,17 +581,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: YouTube
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -513,9 +603,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -531,17 +621,19 @@ proxy-groups:
       - DIRECT
       - REJECT
     url: https://www.youtube.com/generate_204
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Emby
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -551,9 +643,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -568,17 +660,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Github
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -588,9 +682,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -605,17 +699,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Google
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -625,9 +721,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -643,7 +739,9 @@ proxy-groups:
       - DIRECT
       - REJECT
     url: https://www.google.com/generate_204
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Microsoft
     type: select
     proxies:
@@ -651,10 +749,10 @@ proxy-groups:
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
-      - 手动选择
+      - 日常使用
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -664,9 +762,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -681,17 +779,19 @@ proxy-groups:
       - 英国均衡-轮询
       - REJECT
     url: http://www.msftconnecttest.com/connecttest.txt
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: OneDrive
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -701,9 +801,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -718,17 +818,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Twitter(X)
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -738,9 +840,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -755,17 +857,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Telegram
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -775,9 +879,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -792,17 +896,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: WhatsApp
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -812,9 +918,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -829,17 +935,19 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
   - name: Steam
     type: select
     proxies:
-      - 手动选择
+      - 日常使用
       - DMIT 固定
       - MESL 选择
       - Sakura 选择
       - 香港自动
       - 台湾自动
-      - 狮城自动
+      - 新加坡自动
       - 日本自动
       - 韩国自动
       - 美国自动
@@ -849,9 +957,9 @@ proxy-groups:
       - 台湾-回退
       - 台湾均衡-散列
       - 台湾均衡-轮询
-      - 狮城-回退
-      - 狮城均衡-散列
-      - 狮城均衡-轮询
+      - 新加坡-回退
+      - 新加坡均衡-散列
+      - 新加坡均衡-轮询
       - 日本-回退
       - 日本均衡-散列
       - 日本均衡-轮询
@@ -866,70 +974,18 @@ proxy-groups:
       - 英国均衡-轮询
       - DIRECT
       - REJECT
-    use: *ref_0
-  - name: 香港自动
-    interval: 600
-    url: https://www.gstatic.com/generate_204
-    hidden: true
-    type: url-test
-    filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
-    use: *ref_0
-    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 台湾自动
-    interval: 600
-    url: https://www.gstatic.com/generate_204
-    hidden: true
-    type: url-test
-    filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
-    use: *ref_0
-    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 狮城自动
-    interval: 600
-    url: https://www.gstatic.com/generate_204
-    hidden: true
-    type: url-test
-    filter: (?i)(?=.*(🇸🇬|新加坡|狮城|新|SG|SGP|singapore))
-    use: *ref_0
-    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 日本自动
-    interval: 600
-    url: https://www.gstatic.com/generate_204
-    hidden: true
-    type: url-test
-    filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
-    use: *ref_0
-    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 韩国自动
-    interval: 600
-    url: https://www.gstatic.com/generate_204
-    hidden: true
-    type: url-test
-    filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
-    use: *ref_0
-    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 美国自动
-    interval: 600
-    url: https://www.gstatic.com/generate_204
-    hidden: true
-    type: url-test
-    filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
-    use: *ref_0
-    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 英国自动
-    interval: 600
-    url: https://www.gstatic.com/generate_204
-    hidden: true
-    type: url-test
-    filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
-    use: *ref_0
-    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+    use:
+      - MESL
+      - Sakura
   - name: 香港-回退
     interval: 600
     url: https://www.gstatic.com/generate_204
     hidden: true
     type: fallback
     filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 台湾-回退
     interval: 600
@@ -937,15 +993,19 @@ proxy-groups:
     hidden: true
     type: fallback
     filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 狮城-回退
+  - name: 新加坡-回退
     interval: 600
     url: https://www.gstatic.com/generate_204
     hidden: true
     type: fallback
-    filter: (?i)(?=.*(🇸🇬|新加坡|狮城|新|SG|SGP|singapore))
-    use: *ref_0
+    filter: (?i)(?=.*(🇸🇬|新加坡|新加坡|新|SG|SGP|singapore))
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 日本-回退
     interval: 600
@@ -953,7 +1013,9 @@ proxy-groups:
     hidden: true
     type: fallback
     filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 韩国-回退
     interval: 600
@@ -961,7 +1023,9 @@ proxy-groups:
     hidden: true
     type: fallback
     filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 美国-回退
     interval: 600
@@ -969,7 +1033,9 @@ proxy-groups:
     hidden: true
     type: fallback
     filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 英国-回退
     interval: 600
@@ -977,7 +1043,9 @@ proxy-groups:
     hidden: true
     type: fallback
     filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 香港均衡-散列
     interval: 600
@@ -986,7 +1054,9 @@ proxy-groups:
     type: load-balance
     strategy: consistent-hashing
     filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 台湾均衡-散列
     interval: 600
@@ -995,16 +1065,20 @@ proxy-groups:
     type: load-balance
     strategy: consistent-hashing
     filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 狮城均衡-散列
+  - name: 新加坡均衡-散列
     interval: 600
     url: https://www.gstatic.com/generate_204
     hidden: true
     type: load-balance
     strategy: consistent-hashing
-    filter: (?i)(?=.*(🇸🇬|新加坡|狮城|新|SG|SGP|singapore))
-    use: *ref_0
+    filter: (?i)(?=.*(🇸🇬|新加坡|新加坡|新|SG|SGP|singapore))
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 日本均衡-散列
     interval: 600
@@ -1013,7 +1087,9 @@ proxy-groups:
     type: load-balance
     strategy: consistent-hashing
     filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 韩国均衡-散列
     interval: 600
@@ -1022,7 +1098,9 @@ proxy-groups:
     type: load-balance
     strategy: consistent-hashing
     filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 美国均衡-散列
     interval: 600
@@ -1031,7 +1109,9 @@ proxy-groups:
     type: load-balance
     strategy: consistent-hashing
     filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 英国均衡-散列
     interval: 600
@@ -1040,7 +1120,9 @@ proxy-groups:
     type: load-balance
     strategy: consistent-hashing
     filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 香港均衡-轮询
     interval: 600
@@ -1049,7 +1131,9 @@ proxy-groups:
     type: load-balance
     strategy: round-robin
     filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 台湾均衡-轮询
     interval: 600
@@ -1058,16 +1142,20 @@ proxy-groups:
     type: load-balance
     strategy: round-robin
     filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
-  - name: 狮城均衡-轮询
+  - name: 新加坡均衡-轮询
     interval: 600
     url: https://www.gstatic.com/generate_204
     hidden: true
     type: load-balance
     strategy: round-robin
-    filter: (?i)(?=.*(🇸🇬|新加坡|狮城|新|SG|SGP|singapore))
-    use: *ref_0
+    filter: (?i)(?=.*(🇸🇬|新加坡|新加坡|新|SG|SGP|singapore))
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 日本均衡-轮询
     interval: 600
@@ -1076,7 +1164,9 @@ proxy-groups:
     type: load-balance
     strategy: round-robin
     filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 韩国均衡-轮询
     interval: 600
@@ -1085,7 +1175,9 @@ proxy-groups:
     type: load-balance
     strategy: round-robin
     filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 美国均衡-轮询
     interval: 600
@@ -1094,7 +1186,9 @@ proxy-groups:
     type: load-balance
     strategy: round-robin
     filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
   - name: 英国均衡-轮询
     interval: 600
@@ -1103,7 +1197,9 @@ proxy-groups:
     type: load-balance
     strategy: round-robin
     filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
-    use: *ref_0
+    use:
+      - MESL
+      - Sakura
     exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
 rule-providers:
   category-ads-all:
@@ -1377,4 +1473,4 @@ rules:
   - RULE-SET,TwitterIP,Twitter(X),no-resolve
   - RULE-SET,AppleGlobal,Apple
   - RULE-SET,ChinaIP,DIRECT,no-resolve
-  - MATCH,手动选择
+  - MATCH,日常使用

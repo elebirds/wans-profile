@@ -47,3 +47,7 @@ https://raw.githubusercontent.com/elebirds/wans-profile/main/template.yaml
 - 核心配置语义：[Mihomo 文档](https://wiki.metacubex.one/config/)。
 
 本仓库不保证节点可用性；DNS/TUN/IPv6 的实际行为需要在目标客户端验收。
+
+## 界面使用
+
+“日常使用”是需要代理的普通流量及未单独指定服务的默认出口，国内规则仍直连。默认选香港自动，可改选其他地区或机场。七个地区自动组在首页可见，集合 MESL 和 Sakura 对应地区节点；DMIT 固定不参与自动测速切换。回退、散列、轮询组保留为高级选项并隐藏。OpenAI、Claude、Gemini 默认固定 DMIT；更改日常出口不会改变它们。
