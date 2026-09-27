@@ -7,3 +7,5 @@
 - 整理 DNS、IPv6、下载和国内 CDN 策略。
 
 - 将“手动选择”改名为“日常使用”，置顶日常、下载和固定出口；显示七个地区自动组，“狮城”改称“新加坡”，保留高级组隐藏。
+
+- Google、X 默认固定 DMIT；新增“开发下载”机场选择组，默认 Sakura，可切 MESL 或地区组。GitHub、下载、PyPI/Pythonhosted/npm 走开发下载；YouTube 保留独立策略，Google/X 优先于宽泛下载分类。
