@@ -18,7 +18,7 @@ https://raw.githubusercontent.com/elebirds/wans-profile/main/template.yaml
 ## 与上游的区别
 
 - 保留 Wans 的服务分类及七个地区的自动、回退、散列、轮询组。
-- 增加 DMIT 固定、MESL 选择、Sakura 选择、下载组。
+- 增加 DMIT 固定、MESL 选择、Sakura 选择、下载更新组。
 - 机场地区组只使用 MESL/Sakura；DMIT 不参加机场自动选择。AI 默认固定 DMIT。
 - 自动组排除名称中标注五倍的节点，手动选择仍可使用。没有匹配七大地区的节点仍可通过机场选择组访问。
 - 关闭局域网代理，不发布控制接口、固定 secret、机场推广地址或个人节点。
@@ -52,4 +52,4 @@ https://raw.githubusercontent.com/elebirds/wans-profile/main/template.yaml
 
 “日常使用”是需要代理的普通流量及未单独指定服务的默认出口，国内规则仍直连。默认选香港自动，可改选其他地区或机场。七个地区自动组在首页可见，集合 MESL 和 Sakura 对应地区节点；DMIT 固定不参与自动测速切换。回退、散列、轮询组保留为高级选项并隐藏。OpenAI、Claude、Gemini 默认固定 DMIT；更改日常出口不会改变它们。
 
-Google、X 与 AI 默认固定 DMIT。GitHub、下载、PyPI/Pythonhosted/npm 默认走“开发下载”→“Sakura 选择”，可手动切 MESL 或地区组；该组不列出 DMIT。YouTube 保持独立分类与日常出口，不因 Google 固定而自动改走 DMIT。
+Google、X 与 AI 默认固定 DMIT。GitHub 默认跟随“日常使用”。“下载更新”默认 Sakura，可切 MESL 或地区组，不列出 DMIT；使用 Sukka 下载规则识别 PyPI、npm registry、GitHub Release、软件更新等域名，不把 npm 整个网站划为下载。下载规则优先于 Google/GitHub 等平台规则，AI 和国内 Apple/Microsoft CDN 例外仍优先。YouTube 保持独立分类与日常出口。域名规则不能按 HTTPS 路径或文件大小精确区分下载；未被识别的请求仍由平台或兜底规则处理。

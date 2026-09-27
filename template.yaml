@@ -131,7 +131,7 @@ proxy-groups:
     use:
       - MESL
       - Sakura
-  - name: 开发下载
+  - name: 下载更新
     type: select
     proxies:
       - Sakura 选择
@@ -143,15 +143,6 @@ proxy-groups:
       - 美国自动
       - 韩国自动
       - 英国自动
-  - name: 下载
-    type: select
-    proxies:
-      - 开发下载
-      - 日常使用
-      - Sakura 选择
-      - MESL 选择
-      - DMIT 固定
-      - DIRECT
   - name: DMIT 固定
     type: select
     proxies:
@@ -679,7 +670,6 @@ proxy-groups:
   - name: Github
     type: select
     proxies:
-      - 开发下载
       - 日常使用
       - DMIT 固定
       - MESL 选择
@@ -1465,15 +1455,11 @@ rules:
   - RULE-SET,Gemini,Gemini
   - RULE-SET,AppleCN,DIRECT
   - RULE-SET,MicrosoftCN,DIRECT
+  - RULE-SET,DownloadDomain,下载更新
+  - RULE-SET,Download,下载更新
   - RULE-SET,YouTube,YouTube
   - RULE-SET,Google,Google
   - RULE-SET,Twitter,Twitter(X)
-  - DOMAIN-SUFFIX,pypi.org,开发下载
-  - DOMAIN-SUFFIX,pythonhosted.org,开发下载
-  - DOMAIN-SUFFIX,npmjs.org,开发下载
-  - DOMAIN-SUFFIX,npmjs.com,开发下载
-  - RULE-SET,DownloadDomain,下载
-  - RULE-SET,Download,下载
   - RULE-SET,Github,Github
   - RULE-SET,Telegram,Telegram
   - RULE-SET,Spotify,Spotify
