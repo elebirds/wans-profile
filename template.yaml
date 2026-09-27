@@ -1,0 +1,918 @@
+x-template-id: wans-personal-v1
+mode: rule
+allow-lan: false
+bind-address: 127.0.0.1
+mixed-port: 7890
+log-level: info
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+find-process-mode: strict
+profile:
+  store-selected: true
+  store-fake-ip: true
+dns:
+  enable: true
+  listen: 127.0.0.1:53
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  use-system-hosts: true
+  prefer-h3: false
+  fake-ip-filter:
+    - +.lan
+    - +.local
+    - +.home.arpa
+    - localhost
+    - +.localhost
+    - +.msftconnecttest.com
+    - +.msftncsi.com
+    - time.apple.com
+    - time.windows.com
+  default-nameserver:
+    - https://223.5.5.5/dns-query
+    - https://119.29.29.29/dns-query
+  proxy-server-nameserver:
+    - https://223.5.5.5/dns-query
+    - https://119.29.29.29/dns-query
+  direct-nameserver:
+    - https://223.5.5.5/dns-query
+    - https://119.29.29.29/dns-query
+  direct-nameserver-follow-policy: true
+  nameserver:
+    - https://1.1.1.1/dns-query#DMIT 固定
+    - https://8.8.8.8/dns-query#DMIT 固定
+  nameserver-policy:
+    rule-set:Lan: system
+    +.lan: system
+    +.local: system
+    +.home.arpa: system
+    rule-set:China:
+      - https://223.5.5.5/dns-query
+      - https://119.29.29.29/dns-query
+tun:
+  enable: true
+  stack: gvisor
+  auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+  strict-route: false
+  mtu: 1500
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  override-destination: false
+  sniff:
+    HTTP:
+      ports:
+        - 80
+        - 8080
+    TLS:
+      ports:
+        - 443
+        - 8443
+    QUIC:
+      ports:
+        - 443
+        - 8443
+proxy-providers:
+  MESL:
+    type: inline
+    payload:
+      - name: MESL 未配置
+        type: reject
+  Sakura:
+    type: inline
+    payload:
+      - name: Sakura 未配置
+        type: reject
+proxies: []
+proxy-groups:
+  - name: DMIT 固定
+    type: select
+    proxies:
+      - REJECT
+  - name: MESL 选择
+    type: select
+    use:
+      - MESL
+  - name: Sakura 选择
+    type: select
+    use:
+      - Sakura
+  - name: 下载
+    type: select
+    proxies:
+      - 手动选择
+      - Sakura 选择
+      - MESL 选择
+      - DMIT 固定
+      - DIRECT
+  - name: 手动选择
+    type: select
+    proxies:
+      - 香港自动
+      - DMIT 固定
+      - MESL 选择
+      - Sakura 选择
+      - 家宽选择
+      - 台湾自动
+      - 狮城自动
+      - 日本自动
+      - 韩国自动
+      - 美国自动
+      - 英国自动
+      - 香港-回退
+      - 香港均衡-散列
+      - 香港均衡-轮询
+      - 台湾-回退
+      - 台湾均衡-散列
+      - 台湾均衡-轮询
+      - 狮城-回退
+      - 狮城均衡-散列
+      - 狮城均衡-轮询
+      - 日本-回退
+      - 日本均衡-散列
+      - 日本均衡-轮询
+      - 韩国-回退
+      - 韩国均衡-散列
+      - 韩国均衡-轮询
+      - 美国-回退
+      - 美国均衡-散列
+      - 美国均衡-轮询
+      - 英国-回退
+      - 英国均衡-散列
+      - 英国均衡-轮询
+      - DIRECT
+      - REJECT
+    use: &ref_0
+      - MESL
+      - Sakura
+  - name: 家宽选择
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: false
+    type: fallback
+    filter: (?i)(?=.*(家宽))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: GLOBAL
+    type: select
+    proxies: &ref_1
+      - DMIT 固定
+      - MESL 选择
+      - Sakura 选择
+      - 手动选择
+      - 香港自动
+      - 台湾自动
+      - 狮城自动
+      - 日本自动
+      - 韩国自动
+      - 美国自动
+      - 香港-回退
+      - 香港均衡-散列
+      - 香港均衡-轮询
+      - 台湾-回退
+      - 台湾均衡-散列
+      - 台湾均衡-轮询
+      - 狮城-回退
+      - 狮城均衡-散列
+      - 狮城均衡-轮询
+      - 日本-回退
+      - 日本均衡-散列
+      - 日本均衡-轮询
+      - 韩国-回退
+      - 韩国均衡-散列
+      - 韩国均衡-轮询
+      - 美国-回退
+      - 美国均衡-散列
+      - 美国均衡-轮询
+      - 英国-回退
+      - 英国均衡-散列
+      - 英国均衡-轮询
+      - DIRECT
+      - REJECT
+    use: *ref_0
+  - name: Claude
+    type: select
+    proxies: &ref_2
+      - DMIT 固定
+      - MESL 选择
+      - Sakura 选择
+      - 台湾自动
+      - 手动选择
+      - 香港自动
+      - 狮城自动
+      - 日本自动
+      - 韩国自动
+      - 美国自动
+      - 香港-回退
+      - 香港均衡-散列
+      - 香港均衡-轮询
+      - 台湾-回退
+      - 台湾均衡-散列
+      - 台湾均衡-轮询
+      - 狮城-回退
+      - 狮城均衡-散列
+      - 狮城均衡-轮询
+      - 日本-回退
+      - 日本均衡-散列
+      - 日本均衡-轮询
+      - 韩国-回退
+      - 韩国均衡-散列
+      - 韩国均衡-轮询
+      - 美国-回退
+      - 美国均衡-散列
+      - 美国均衡-轮询
+      - 英国-回退
+      - 英国均衡-散列
+      - 英国均衡-轮询
+      - DIRECT
+      - REJECT
+    use: *ref_0
+  - name: Gemini
+    type: select
+    proxies:
+      - DMIT 固定
+      - MESL 选择
+      - Sakura 选择
+      - 狮城自动
+      - 手动选择
+      - 香港自动
+      - 台湾自动
+      - 日本自动
+      - 韩国自动
+      - 美国自动
+      - 香港-回退
+      - 香港均衡-散列
+      - 香港均衡-轮询
+      - 台湾-回退
+      - 台湾均衡-散列
+      - 台湾均衡-轮询
+      - 狮城-回退
+      - 狮城均衡-散列
+      - 狮城均衡-轮询
+      - 日本-回退
+      - 日本均衡-散列
+      - 日本均衡-轮询
+      - 韩国-回退
+      - 韩国均衡-散列
+      - 韩国均衡-轮询
+      - 美国-回退
+      - 美国均衡-散列
+      - 美国均衡-轮询
+      - 英国-回退
+      - 英国均衡-散列
+      - 英国均衡-轮询
+      - DIRECT
+      - REJECT
+    url: https://www.google.com/generate_204
+    use: *ref_0
+  - name: OpenAI
+    type: select
+    proxies:
+      - DMIT 固定
+      - MESL 选择
+      - Sakura 选择
+      - 美国自动
+      - 手动选择
+      - 香港自动
+      - 台湾自动
+      - 狮城自动
+      - 日本自动
+      - 韩国自动
+      - 香港-回退
+      - 香港均衡-散列
+      - 香港均衡-轮询
+      - 台湾-回退
+      - 台湾均衡-散列
+      - 台湾均衡-轮询
+      - 狮城-回退
+      - 狮城均衡-散列
+      - 狮城均衡-轮询
+      - 日本-回退
+      - 日本均衡-散列
+      - 日本均衡-轮询
+      - 韩国-回退
+      - 韩国均衡-散列
+      - 韩国均衡-轮询
+      - 美国-回退
+      - 美国均衡-散列
+      - 美国均衡-轮询
+      - 英国-回退
+      - 英国均衡-散列
+      - 英国均衡-轮询
+      - DIRECT
+      - REJECT
+    use: *ref_0
+  - name: Apple
+    type: select
+    proxies: *ref_1
+    url: https://www.apple.com/library/test/success.html
+    use: *ref_0
+  - name: Disney
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: Netflix
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: Spotify
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: TikTok
+    type: select
+    proxies: *ref_2
+    use: *ref_0
+  - name: YouTube
+    type: select
+    proxies: *ref_1
+    url: https://www.youtube.com/generate_204
+    use: *ref_0
+  - name: Emby
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: Github
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: Google
+    type: select
+    proxies: *ref_1
+    url: https://www.google.com/generate_204
+    use: *ref_0
+  - name: Microsoft
+    type: select
+    proxies:
+      - DIRECT
+      - DMIT 固定
+      - MESL 选择
+      - Sakura 选择
+      - 手动选择
+      - 香港自动
+      - 台湾自动
+      - 狮城自动
+      - 日本自动
+      - 韩国自动
+      - 美国自动
+      - 香港-回退
+      - 香港均衡-散列
+      - 香港均衡-轮询
+      - 台湾-回退
+      - 台湾均衡-散列
+      - 台湾均衡-轮询
+      - 狮城-回退
+      - 狮城均衡-散列
+      - 狮城均衡-轮询
+      - 日本-回退
+      - 日本均衡-散列
+      - 日本均衡-轮询
+      - 韩国-回退
+      - 韩国均衡-散列
+      - 韩国均衡-轮询
+      - 美国-回退
+      - 美国均衡-散列
+      - 美国均衡-轮询
+      - 英国-回退
+      - 英国均衡-散列
+      - 英国均衡-轮询
+      - REJECT
+    url: http://www.msftconnecttest.com/connecttest.txt
+    use: *ref_0
+  - name: OneDrive
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: Twitter(X)
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: Telegram
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: WhatsApp
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: Steam
+    type: select
+    proxies: *ref_1
+    use: *ref_0
+  - name: 香港自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: url-test
+    filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 台湾自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: url-test
+    filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 狮城自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: url-test
+    filter: (?i)(?=.*(🇸🇬|新加坡|狮城|新|SG|SGP|singapore))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 日本自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: url-test
+    filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 韩国自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: url-test
+    filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 美国自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: url-test
+    filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 英国自动
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: url-test
+    filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 香港-回退
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: fallback
+    filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 台湾-回退
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: fallback
+    filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 狮城-回退
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: fallback
+    filter: (?i)(?=.*(🇸🇬|新加坡|狮城|新|SG|SGP|singapore))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 日本-回退
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: fallback
+    filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 韩国-回退
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: fallback
+    filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 美国-回退
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: fallback
+    filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 英国-回退
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: fallback
+    filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 香港均衡-散列
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: consistent-hashing
+    filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 台湾均衡-散列
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: consistent-hashing
+    filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 狮城均衡-散列
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: consistent-hashing
+    filter: (?i)(?=.*(🇸🇬|新加坡|狮城|新|SG|SGP|singapore))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 日本均衡-散列
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: consistent-hashing
+    filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 韩国均衡-散列
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: consistent-hashing
+    filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 美国均衡-散列
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: consistent-hashing
+    filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 英国均衡-散列
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: consistent-hashing
+    filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 香港均衡-轮询
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: round-robin
+    filter: (?i)(?=.*(🇭🇰|香港|港|hk|hkg|hong ?kong))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 台湾均衡-轮询
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: round-robin
+    filter: (?i)(?=.*(🇹🇼|台湾|台|TW|TWN|taiwan|taipei))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 狮城均衡-轮询
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: round-robin
+    filter: (?i)(?=.*(🇸🇬|新加坡|狮城|新|SG|SGP|singapore))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 日本均衡-轮询
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: round-robin
+    filter: (?i)(?=.*(🇯🇵|日本|日|JP|JPN|japan|tokyo|osaka))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 韩国均衡-轮询
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: round-robin
+    filter: (?i)(?=.*(🇰🇷|韩国|韩|KR|KOR|korea|seoul))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 美国均衡-轮询
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: round-robin
+    filter: (?i)(?=.*(🇺🇸|美国|美|US|USA|united ?states|america|los angeles|san jose|silicon valley))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+  - name: 英国均衡-轮询
+    interval: 600
+    url: https://www.gstatic.com/generate_204
+    hidden: true
+    type: load-balance
+    strategy: round-robin
+    filter: (?i)(?=.*(🇬🇧|英国|英|GBR|UK|united ?kingdom|london))
+    use: *ref_0
+    exclude-filter: (?i)5\s*倍|5\s*[xX]|[xX]\s*5|Expire|到期|剩余|Traffic|网址|官网|过期
+rule-providers:
+  category-ads-all:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ads-all.mrs
+    path: ./ruleset/wans-v1/category-ads-all.mrs
+  China:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
+    path: ./ruleset/wans-v1/China.mrs
+  Claude:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/anthropic.mrs
+    path: ./ruleset/wans-v1/Claude.mrs
+  Disney:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/disney.mrs
+    path: ./ruleset/wans-v1/Disney.mrs
+  Emby:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-emby.mrs
+    path: ./ruleset/wans-v1/Emby.mrs
+  Gemini:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google-gemini.mrs
+    path: ./ruleset/wans-v1/Gemini.mrs
+  Github:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs
+    path: ./ruleset/wans-v1/Github.mrs
+  Google:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs
+    path: ./ruleset/wans-v1/Google.mrs
+  Lan:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs
+    path: ./ruleset/wans-v1/Lan.mrs
+  Microsoft:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs
+    path: ./ruleset/wans-v1/Microsoft.mrs
+  Netflix:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs
+    path: ./ruleset/wans-v1/Netflix.mrs
+  OpenAI:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/openai.mrs
+    path: ./ruleset/wans-v1/OpenAI.mrs
+  OneDrive:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/onedrive.mrs
+    path: ./ruleset/wans-v1/OneDrive.mrs
+  Steam:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam.mrs
+    path: ./ruleset/wans-v1/Steam.mrs
+  Spotify:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs
+    path: ./ruleset/wans-v1/Spotify.mrs
+  TikTok:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tiktok.mrs
+    path: ./ruleset/wans-v1/TikTok.mrs
+  WhatsApp:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/whatsapp.mrs
+    path: ./ruleset/wans-v1/WhatsApp.mrs
+  Twitter:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/x.mrs
+    path: ./ruleset/wans-v1/Twitter.mrs
+  Telegram:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs
+    path: ./ruleset/wans-v1/Telegram.mrs
+  YouTube:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs
+    path: ./ruleset/wans-v1/YouTube.mrs
+  ChinaIP:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: ipcidr
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs
+    path: ./ruleset/wans-v1/ChinaIP.mrs
+  GoogleIP:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: ipcidr
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs
+    path: ./ruleset/wans-v1/GoogleIP.mrs
+  LanIP:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: ipcidr
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/private.mrs
+    path: ./ruleset/wans-v1/LanIP.mrs
+  TwitterIP:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: ipcidr
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/twitter.mrs
+    path: ./ruleset/wans-v1/TwitterIP.mrs
+  TelegramIP:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: ipcidr
+    url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs
+    path: ./ruleset/wans-v1/TelegramIP.mrs
+  AppleGlobal:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    path: ./ruleset/wans-v1/AppleGlobal.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs
+  AppleCN:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    path: ./ruleset/wans-v1/AppleCN.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple@cn.mrs
+  MicrosoftCN:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: mrs
+    behavior: domain
+    path: ./ruleset/wans-v1/MicrosoftCN.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft@cn.mrs
+  Download:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: text
+    behavior: classical
+    path: ./ruleset/wans-v1/Download.list
+    url: https://ruleset.skk.moe/Clash/non_ip/download.txt
+  DownloadDomain:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    format: text
+    behavior: domain
+    path: ./ruleset/wans-v1/DownloadDomain.list
+    url: https://ruleset.skk.moe/Clash/domainset/download.txt
+rules:
+  - RULE-SET,Lan,DIRECT
+  - RULE-SET,LanIP,DIRECT,no-resolve
+  - RULE-SET,category-ads-all,REJECT
+  - RULE-SET,OpenAI,OpenAI
+  - RULE-SET,Claude,Claude
+  - RULE-SET,Gemini,Gemini
+  - RULE-SET,AppleCN,DIRECT
+  - RULE-SET,MicrosoftCN,DIRECT
+  - RULE-SET,DownloadDomain,下载
+  - RULE-SET,Download,下载
+  - RULE-SET,YouTube,YouTube
+  - RULE-SET,Github,Github
+  - RULE-SET,Google,Google
+  - RULE-SET,Twitter,Twitter(X)
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,TikTok,TikTok
+  - RULE-SET,WhatsApp,WhatsApp
+  - RULE-SET,OneDrive,OneDrive
+  - RULE-SET,Microsoft,Microsoft
+  - RULE-SET,Netflix,Netflix
+  - RULE-SET,Disney,Disney
+  - RULE-SET,Steam,Steam
+  - RULE-SET,Emby,Emby
+  - RULE-SET,China,DIRECT
+  - RULE-SET,GoogleIP,Google,no-resolve
+  - RULE-SET,TelegramIP,Telegram,no-resolve
+  - RULE-SET,TwitterIP,Twitter(X),no-resolve
+  - RULE-SET,AppleGlobal,Apple
+  - RULE-SET,ChinaIP,DIRECT,no-resolve
+  - MATCH,手动选择

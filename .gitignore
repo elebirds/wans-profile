@@ -1,0 +1,6 @@
+private/
+*.private.*
+*.log
+cache.db
+proxy-providers/
+ruleset/
