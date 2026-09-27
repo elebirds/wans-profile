@@ -33,7 +33,7 @@ https://raw.githubusercontent.com/elebirds/wans-profile/main/template.yaml
 
 发布前：用安装的 Mihomo 对“模板 + 私人覆写”执行 `mihomo -t -d <测试目录> -f <候选文件>`，检查分组引用、节点来源、倍率过滤和 DNS；涉及网络行为时，使用独立端口测试后再切换。不能仅凭 YAML 语法正确就发布。
 
-远程规则集和机场 provider 按各自 interval 更新；模板通过 Clash Verge 的远程订阅更新。它们是不同的更新通道。
+公共规则集经 DMIT 下载，以避免 GitHub 大文件直连超时；保留本地缓存。远程规则集和机场 provider 按各自 interval 更新；模板通过 Clash Verge 的远程订阅更新。它们是不同的更新通道。
 
 每次变更记录到 CHANGELOG，Git 提交保留上一版。回滚时 revert 对应提交并更新订阅。不要随意重命名 `MESL`、`Sakura`、`DMIT 固定` 等本地覆写依赖的名称。
 

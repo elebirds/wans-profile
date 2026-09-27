@@ -647,7 +647,7 @@ rule-providers:
   category-ads-all:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ads-all.mrs
@@ -655,7 +655,7 @@ rule-providers:
   China:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
@@ -663,7 +663,7 @@ rule-providers:
   Claude:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/anthropic.mrs
@@ -671,7 +671,7 @@ rule-providers:
   Disney:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/disney.mrs
@@ -679,7 +679,7 @@ rule-providers:
   Emby:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-emby.mrs
@@ -687,7 +687,7 @@ rule-providers:
   Gemini:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google-gemini.mrs
@@ -695,7 +695,7 @@ rule-providers:
   Github:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/github.mrs
@@ -703,7 +703,7 @@ rule-providers:
   Google:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/google.mrs
@@ -711,7 +711,7 @@ rule-providers:
   Lan:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/private.mrs
@@ -719,7 +719,7 @@ rule-providers:
   Microsoft:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/microsoft.mrs
@@ -727,7 +727,7 @@ rule-providers:
   Netflix:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/netflix.mrs
@@ -735,7 +735,7 @@ rule-providers:
   OpenAI:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/openai.mrs
@@ -743,7 +743,7 @@ rule-providers:
   OneDrive:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/onedrive.mrs
@@ -751,7 +751,7 @@ rule-providers:
   Steam:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/steam.mrs
@@ -759,7 +759,7 @@ rule-providers:
   Spotify:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs
@@ -767,7 +767,7 @@ rule-providers:
   TikTok:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/tiktok.mrs
@@ -775,7 +775,7 @@ rule-providers:
   WhatsApp:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/whatsapp.mrs
@@ -783,7 +783,7 @@ rule-providers:
   Twitter:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/x.mrs
@@ -791,7 +791,7 @@ rule-providers:
   Telegram:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/telegram.mrs
@@ -799,7 +799,7 @@ rule-providers:
   YouTube:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/youtube.mrs
@@ -807,7 +807,7 @@ rule-providers:
   ChinaIP:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: ipcidr
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/cn.mrs
@@ -815,7 +815,7 @@ rule-providers:
   GoogleIP:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: ipcidr
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/google.mrs
@@ -823,7 +823,7 @@ rule-providers:
   LanIP:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: ipcidr
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/private.mrs
@@ -831,7 +831,7 @@ rule-providers:
   TwitterIP:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: ipcidr
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/twitter.mrs
@@ -839,7 +839,7 @@ rule-providers:
   TelegramIP:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: ipcidr
     url: https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/telegram.mrs
@@ -847,7 +847,7 @@ rule-providers:
   AppleGlobal:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     path: ./ruleset/wans-v1/AppleGlobal.mrs
@@ -855,7 +855,7 @@ rule-providers:
   AppleCN:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     path: ./ruleset/wans-v1/AppleCN.mrs
@@ -863,7 +863,7 @@ rule-providers:
   MicrosoftCN:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: mrs
     behavior: domain
     path: ./ruleset/wans-v1/MicrosoftCN.mrs
@@ -871,7 +871,7 @@ rule-providers:
   Download:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: text
     behavior: classical
     path: ./ruleset/wans-v1/Download.list
@@ -879,7 +879,7 @@ rule-providers:
   DownloadDomain:
     type: http
     interval: 86400
-    proxy: DIRECT
+    proxy: DMIT 固定
     format: text
     behavior: domain
     path: ./ruleset/wans-v1/DownloadDomain.list
